@@ -5,6 +5,34 @@
     <title>Title</title>
 </head>
 <body>
-<h1 th:text="${messages}"></h1>
+<div>
+    <span>Ваши товары:</span>
+    <div th:each="products : ${productList}">
+        <span class="product_list" th:text="${products.name}"/>
+        <span class="product_list" th:text="${products.price +  ' руб.'}"/>
+        <a th:method="get" th:href="${products.id}">Удалить</a>
+    </div>
+
+</div>
+<h2>Создание нового товара</h2>
+<form th:action="@{/}" th:object="${product}" th:method="post">
+    <label for="name">Название</label><input id="name" type="text" th:field="*{name}"> <br>
+    <label for="articul">Артикул</label><input id="articul" type="text" th:field="*{sku}"> <br>
+    <label for="desc">Описание</label><input id="desc" type="text" th:field="*{description}"> <br>
+    <label for="category">Категория</label><input id="category" type="text" th:field="*{category}"> <br>
+    <label for="price">Цена</label><input id="price" type="text" th:field="*{price}"> <br>
+    <label for="quantity">Количество</label><input id="quantity" type="text" th:field="*{quantity}"> <br>
+
+    <button type="submit">Сохранить</button>
+</form>
+
 </body>
+<style>
+    input{
+        margin: 5px;
+    }
+    .product_list{
+        margin: 5px;
+    }
+</style>
 </html>
