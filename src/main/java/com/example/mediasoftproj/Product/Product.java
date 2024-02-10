@@ -2,15 +2,19 @@ package com.example.mediasoftproj.Product;
 
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
+
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @Table(name = "products")
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
+    private UUID id;
 
     @Column(unique = true)
     private String sku;
@@ -33,7 +37,7 @@ public class Product {
     public Product() {
 
     }
-    public Product(Long id, String sku, String name, String description, String category, double price, int quantity, Date lastQuantityChange, Date createdAt) {
+    public Product(UUID id, String sku, String name, String description, String category, double price, int quantity, Date lastQuantityChange, Date createdAt) {
         this.id = id;
         this.sku = sku;
         this.name = name;
@@ -45,11 +49,11 @@ public class Product {
         this.createdAt = createdAt;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

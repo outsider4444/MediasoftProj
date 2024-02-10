@@ -2,15 +2,15 @@ package com.example.mediasoftproj.Product.controllers;
 
 import com.example.mediasoftproj.Product.Product;
 import com.example.mediasoftproj.Product.services.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @RestController
-@RequestMapping("/")
 public class ProductController {
 
     @Autowired
@@ -29,15 +29,29 @@ public class ProductController {
     @PostMapping("/")
     public ModelAndView addProduct(@ModelAttribute("product") Product product) {
         productService.saveOrUpdateProduct(product);
-        ModelAndView mav = getAllProducts();
+        return getAllProducts();
+    }
+
+    @GetMapping("/{id}/change")
+    public ModelAndView getProductToChange(@PathVariable( value = "id") UUID id) {
+        Optional<Product> product = productService.getProductById(id);
+        ModelAndView mav = new ModelAndView("change");
+        mav.addObject("product", product);
+        UUID product_id = product.get().getId();
+        mav.addObject("product_id", product_id);
         return mav;
     }
 
-    @RequestMapping(value = "/{id}", method= {RequestMethod.DELETE,RequestMethod.GET})
-    public ModelAndView deleteProduct(@PathVariable Long id){
+    @RequestMapping(value = "/{id}/change", method = {RequestMethod.PUT, RequestMethod.POST})
+    public ModelAndView changeProduct(@PathVariable UUID id, @Valid Product product) {
+        productService.saveOrUpdateProduct(product);
+        return getAllProducts();
+    }
+
+    @RequestMapping(value = "/{id}/delete", method= {RequestMethod.DELETE,RequestMethod.GET})
+    public ModelAndView deleteProduct(@PathVariable UUID id){
         productService.deleteProduct(id);
-        ModelAndView mav = getAllProducts();
-        return mav;
+        return getAllProducts();
     }
 
 }

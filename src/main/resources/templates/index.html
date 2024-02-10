@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -10,7 +10,8 @@
     <div th:each="products : ${productList}">
         <span class="product_list" th:text="${products.name}"/>
         <span class="product_list" th:text="${products.price +  ' руб.'}"/>
-        <a th:method="get" th:href="${products.id}">Удалить</a>
+        <a th:method="get" th:href="${'/' + products.id + '/change'}">Редактировать</a>
+        <a th:method="get" th:href="${'/' + products.id} + '/delete'">Удалить</a>
     </div>
 
 </div>

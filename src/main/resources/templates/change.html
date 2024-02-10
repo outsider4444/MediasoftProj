@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="${'/' + product_id + '/change'}" th:object="${product}" th:method="put">
+  <label for="name">Название</label><input id="name" type="text" th:field="${product.name}"> <br>
+  <label for="articul">Артикул</label><input id="articul" type="text" th:field="${product.sku}"> <br>
+  <label for="desc">Описание</label><input id="desc" type="text" th:field="${product.description}"> <br>
+  <label for="category">Категория</label><input id="category" type="text" th:field="${product.category}"> <br>
+  <label for="price">Цена</label><input id="price" type="text" th:field="${product.price}"> <br>
+  <label for="quantity">Количество</label><input id="quantity" type="text" th:field="${product.quantity}"> <br>
+  <button type="submit">Сохранить</button>
+</form>
+</body>
+<style>
+    input{
+        margin: 5px;
+    }
+</style>
+</html>
