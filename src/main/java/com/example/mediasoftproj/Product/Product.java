@@ -2,33 +2,55 @@ package com.example.mediasoftproj.Product;
 
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.Date;
 import java.util.UUID;
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "products")
 public class Product {
-
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "org.hibernate.id.UUIDGenerator")
     private UUID id;
 
-    @Column(unique = true)
-    private String sku;
+    @NotNull
+    @Column(nullable = false, unique = true)
+    private String article;
 
+    @NotBlank
+    @Column(nullable = false)
     private String name;
+
     private String description;
+
+    @NotBlank
+    @Column(nullable = false)
     private String category;
+
+    @NotNull
+    @Positive
+    @Column(nullable = false)
     private double price;
+
+    @NotNull
+    @Min(0)
+    @Column(nullable = false)
     private int quantity;
 
+    @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "last_quantity_change")
     private Date lastQuantityChange;
 
+    @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at", updatable = false)
     private Date createdAt;
@@ -39,7 +61,7 @@ public class Product {
     }
     public Product(UUID id, String sku, String name, String description, String category, double price, int quantity, Date lastQuantityChange, Date createdAt) {
         this.id = id;
-        this.sku = sku;
+        this.article = sku;
         this.name = name;
         this.description = description;
         this.category = category;
@@ -57,12 +79,12 @@ public class Product {
         this.id = id;
     }
 
-    public String getSku() {
-        return sku;
+    public String getArticle() {
+        return article;
     }
 
-    public void setSku(String sku) {
-        this.sku = sku;
+    public void setArticle(String article) {
+        this.article = article;
     }
 
     public String getName() {

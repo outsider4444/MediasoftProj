@@ -18,7 +18,7 @@
 <h2>Создание нового товара</h2>
 <form th:action="@{/}" th:object="${product}" th:method="post">
     <label for="name">Название</label><input id="name" type="text" th:field="*{name}"> <br>
-    <label for="articul">Артикул</label><input id="articul" type="text" th:field="*{sku}"> <br>
+    <label for="articul">Артикул</label><input id="articul" type="text" th:field="*{article}"> <br>
     <label for="desc">Описание</label><input id="desc" type="text" th:field="*{description}"> <br>
     <label for="category">Категория</label><input id="category" type="text" th:field="*{category}"> <br>
     <label for="price">Цена</label><input id="price" type="text" th:field="*{price}"> <br>
